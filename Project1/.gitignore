@@ -1,0 +1,23 @@
+# Bytecode
+__pycache__/
+*.pyc
+
+# Env and secrets
+.env
+
+# OS
+.DS_Store
+
+# Docker
+*.log
+*.pid
+*.db
+*.sqlite3
+postgres_data/
+
+# Virtual environments
+venv/
+
+# VSCode or PyCharm settings (optional)
+.vscode/
+.idea/

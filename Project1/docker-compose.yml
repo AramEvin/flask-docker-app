@@ -1,0 +1,32 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres:15
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+
+  app:
+    build:
+      context: .
+    depends_on:
+      - db
+    ports:
+      - "5000:5000"
+    # We mount local folders to enable live changes (optional in production)
+    volumes:
+      - .:/app
+      - ./templates:/app/templates
+    environment:
+      - DATABASE_URL=${DATABASE_URL}
+      - FLASK_DEBUG=${FLASK_DEBUG}
+    command: python main.py
+
+volumes:
+  postgres_data:

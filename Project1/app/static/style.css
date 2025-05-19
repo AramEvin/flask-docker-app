@@ -1,0 +1,30 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 2em;
+    background-color: #f8f9fa;
+}
+
+h1, h2 {
+    color: #333;
+}
+
+input {
+    padding: 0.5em;
+    margin-right: 0.5em;
+}
+
+button {
+    padding: 0.5em 1em;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+}
+
+ul {
+    padding-left: 1em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Flask Users</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <h1>👋 Welcome to the Users App</h1>
+    <h2>Add a new user</h2>
+    <form method="POST">
+        <input type="text" name="name" placeholder="Enter name" required>
+        <button type="submit">Add</button>
+    </form>
+
+    <h2>Current Users:</h2>
+    <ul>
+    {% for user in users %}
+        <li>
+            {{ user.id }}: {{ user.name }}
+            <a href="{{ url_for('users.edit', user_id=user.id) }}">✏️ Edit</a>
+            <a href="{{ url_for('users.delete', user_id=user.id) }}" onclick="return confirm('Delete this user?')">❌ Delete</a>
+        </li>
+    {% else %}
+        <li>No users found.</li>
+    {% endfor %}
+    </ul>
+</body>
+</html>
