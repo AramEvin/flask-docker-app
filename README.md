@@ -17,3 +17,19 @@ A simple, extensible web application using **Flask**, **PostgreSQL**, and **Dock
 ---
 
 ## 📁 Project Structure
+
+│
+├── app/
+│ ├── init.py # Flask app factory
+│ ├── db.py # DB connection logic
+│ ├── routes/ # Blueprint routes
+│ │ └── users.py
+│ ├── templates/ # HTML templates
+│ └── static/ # CSS and static files
+│
+├── main.py # Entrypoint for app
+├── Dockerfile # App Docker image
+├── docker-compose.yml # Service orchestration
+├── requirements.txt # Python dependencies
+├── .env # Environment variables
+└── .gitignore
