@@ -11,8 +11,10 @@
   </header>
 
   <div class="container">
+
     <form method="get" action="/" class="search-form">
       <input type="text" name="q" placeholder="Search users..." value="{{ search_query }}">
+      <input type="hidden" name="sort" value="{{ sort_by }}">
       <button type="submit">Search</button>
     </form>
 
@@ -27,7 +29,12 @@
     <table>
       <thead>
         <tr>
-          <th>Name</th><th>Surname</th><th>Email</th><th>Phone</th><th>Actions</th>
+          <th><a href="/?sort=name{% if search_query %}&q={{ search_query }}{% endif %}">Name</a></th>
+          <th>Surname</th>
+          <th>Email</th>
+          <th>Phone</th>
+          <th><a href="/?sort=date{% if search_query %}&q={{ search_query }}{% endif %}">Date Added</a></th>
+          <th>Actions</th>
         </tr>
       </thead>
       <tbody>
@@ -37,6 +44,7 @@
           <td>{{ user[2] }}</td>
           <td>{{ user[3] }}</td>
           <td>{{ user[4] }}</td>
+          <td>{{ user[0] }}</td> <!-- using ID as "date added" proxy -->
           <td>
             <a href="/edit/{{ user[0] }}">Edit</a>
             <a href="/delete/{{ user[0] }}" onclick="return confirm('Delete this user?')">Delete</a>
