@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>User List</title>
+  <title>User Manager</title>
   <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
@@ -11,7 +11,12 @@
   </header>
 
   <div class="container">
-    <form action="/add" method="post">
+    <form method="get" action="/" class="search-form">
+      <input type="text" name="q" placeholder="Search users..." value="{{ search_query }}">
+      <button type="submit">Search</button>
+    </form>
+
+    <form action="/add" method="post" class="add-form">
       <input type="text" name="name" placeholder="Name" required>
       <input type="text" name="surname" placeholder="Surname">
       <input type="email" name="email" placeholder="Email">
@@ -20,26 +25,27 @@
     </form>
 
     <table>
-      <tr>
-        <th>Name</th>
-        <th>Surname</th>
-        <th>Email</th>
-        <th>Phone</th>
-        <th>Actions</th>
-      </tr>
-      {% for user in users %}
-      <tr>
-        <td>{{ user[1] }}</td>
-        <td>{{ user[2] }}</td>
-        <td>{{ user[3] }}</td>
-        <td>{{ user[4] }}</td>
-        <td>
-          <a href="/edit/{{ user[0] }}" class="action-link">Edit</a>
-          <a href="/delete/{{ user[0] }}" class="action-link">Delete</a>
-        </td>
-      </tr>
-      {% endfor %}
+      <thead>
+        <tr>
+          <th>Name</th><th>Surname</th><th>Email</th><th>Phone</th><th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for user in users %}
+        <tr>
+          <td>{{ user[1] }}</td>
+          <td>{{ user[2] }}</td>
+          <td>{{ user[3] }}</td>
+          <td>{{ user[4] }}</td>
+          <td>
+            <a href="/edit/{{ user[0] }}">Edit</a>
+            <a href="/delete/{{ user[0] }}" onclick="return confirm('Delete this user?')">Delete</a>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
     </table>
   </div>
 </body>
 </html>
+
