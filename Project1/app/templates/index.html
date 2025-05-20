@@ -1,38 +1,45 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>User Dashboard</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <title>User List</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-    <div class="container">
-        <h1>🚀 User Dashboard</h1>
+  <header>
+    <img src="{{ url_for('static', filename='logo.png') }}" alt="Logo">
+    <h1>User Manager</h1>
+  </header>
 
-        <form action="{{ url_for('users.create_user') }}" method="POST">
-            <input type="text" name="name" placeholder="Full Name" required>
-            <input type="email" name="email" placeholder="Email Address" required>
-            <button type="submit">Add User</button>
-        </form>
+  <div class="container">
+    <form action="/add" method="post">
+      <input type="text" name="name" placeholder="Name" required>
+      <input type="text" name="surname" placeholder="Surname">
+      <input type="email" name="email" placeholder="Email">
+      <input type="text" name="phone" placeholder="Phone">
+      <button type="submit">Add User</button>
+    </form>
 
-        <table>
-            <thead>
-                <tr><th>ID</th><th>Name</th><th>Email</th><th>Action</th></tr>
-            </thead>
-            <tbody>
-                {% for user in users %}
-                <tr>
-                    <td>{{ user[0] }}</td>
-                    <td>{{ user[1] }}</td>
-                    <td>{{ user[2] }}</td>
-                    <td>
-                        <a href="{{ url_for('users.delete_user', user_id=user[0]) }}" class="delete">Delete</a>
-                    </td>
-                </tr>
-                {% else %}
-                <tr><td colspan="4">No users yet</td></tr>
-                {% endfor %}
-            </tbody>
-        </table>
-    </div>
+    <table>
+      <tr>
+        <th>Name</th>
+        <th>Surname</th>
+        <th>Email</th>
+        <th>Phone</th>
+        <th>Actions</th>
+      </tr>
+      {% for user in users %}
+      <tr>
+        <td>{{ user[1] }}</td>
+        <td>{{ user[2] }}</td>
+        <td>{{ user[3] }}</td>
+        <td>{{ user[4] }}</td>
+        <td>
+          <a href="/edit/{{ user[0] }}" class="action-link">Edit</a>
+          <a href="/delete/{{ user[0] }}" class="action-link">Delete</a>
+        </td>
+      </tr>
+      {% endfor %}
+    </table>
+  </div>
 </body>
 </html>

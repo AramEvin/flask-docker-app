@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Edit User</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <header>
+    <img src="{{ url_for('static', filename='logo.png') }}" alt="Logo">
+    <h1>Edit User</h1>
+  </header>
+
+  <div class="container">
+    <form action="/edit/{{ user[0] }}" method="post">
+      <input type="text" name="name" placeholder="Name" value="{{ user[1] }}" required>
+      <input type="text" name="surname" placeholder="Surname" value="{{ user[2] }}">
+      <input type="email" name="email" placeholder="Email" value="{{ user[3] }}">
+      <input type="text" name="phone" placeholder="Phone" value="{{ user[4] }}">
+      <button type="submit">Update User</button>
+    </form>
+    <a href="{{ url_for('users.index') }}" class="action-link">← Back to User List</a>
+  </div>
+</body>
+</html>
