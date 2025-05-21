@@ -128,3 +128,29 @@ a.action-link:hover {
   border-radius: 0 5px 5px 0;
   cursor: pointer;
 }
+
+.flash-messages {
+  list-style: none;
+  padding: 0;
+  margin: 1em auto;
+  max-width: 600px;
+}
+
+.flash-messages li {
+  padding: 10px;
+  border-radius: 5px;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+.flash-messages .error {
+  background: #ffdddd;
+  color: #a00;
+  border: 1px solid #f88;
+}
+
+.flash-messages .success {
+  background: #ddffdd;
+  color: #060;
+  border: 1px solid #8f8;
+}
