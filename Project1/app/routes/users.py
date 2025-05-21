@@ -11,17 +11,28 @@ def index():
     search_query = request.args.get("q", "")
     sort_by = request.args.get("sort", "date")
 
-    sort_column = "name" if sort_by == "name" else "id"
+    sort_column = {
+        "name": "name",
+        "surname": "surname",
+        "date": "created_at"
+    }.get(sort_by, "created_at")
 
     if search_query:
         cursor.execute(
-            f"""SELECT * FROM users 
-                WHERE name ILIKE %s OR surname ILIKE %s OR email ILIKE %s OR phone ILIKE %s
-                ORDER BY {sort_column} ASC""",
-            [f"%{search_query}%"] * 4
+            f"""
+            SELECT id, name, surname, email, phone, created_at FROM users
+            WHERE name ILIKE %s OR surname ILIKE %s OR email ILIKE %s OR phone ILIKE %s
+            ORDER BY {sort_column} ASC
+            """,
+            [f"%{search_query}%"] * 4,
         )
     else:
-        cursor.execute(f"SELECT * FROM users ORDER BY {sort_column} ASC")
+        cursor.execute(
+            f"""
+            SELECT id, name, surname, email, phone, created_at FROM users
+            ORDER BY {sort_column} ASC
+            """
+        )
 
     users = cursor.fetchall()
     cursor.close()
@@ -35,7 +46,10 @@ def add_user():
     surname = request.form.get("surname", "")
     email = request.form.get("email", "")
     phone = request.form.get("phone", "")
-    cursor.execute("INSERT INTO users (name, surname, email, phone) VALUES (%s, %s, %s, %s)", (name, surname, email, phone))
+    cursor.execute(
+        "INSERT INTO users (name, surname, email, phone) VALUES (%s, %s, %s, %s)",
+        (name, surname, email, phone),
+    )
     db.commit()
     cursor.close()
     return redirect(url_for("users.index"))
@@ -52,7 +66,7 @@ def edit_user(user_id):
         phone = request.form["phone"]
         cursor.execute(
             "UPDATE users SET name=%s, surname=%s, email=%s, phone=%s WHERE id=%s",
-            (name, surname, email, phone, user_id)
+            (name, surname, email, phone, user_id),
         )
         db.commit()
         cursor.close()

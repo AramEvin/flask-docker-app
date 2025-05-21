@@ -29,11 +29,23 @@
     <table>
       <thead>
         <tr>
-          <th><a href="/?sort=name{% if search_query %}&q={{ search_query }}{% endif %}">Name</a></th>
-          <th>Surname</th>
+          <th>
+            <a href="{{ url_for('users.index', sort='name', q=search_query) }}">
+              Name {% if sort_by == 'name' %}⬆️{% endif %}
+            </a>
+          </th>
+          <th>
+            <a href="{{ url_for('users.index', sort='surname', q=search_query) }}">
+              Surname {% if sort_by == 'surname' %}⬆️{% endif %}
+            </a>
+          </th>
           <th>Email</th>
           <th>Phone</th>
-          <th><a href="/?sort=date{% if search_query %}&q={{ search_query }}{% endif %}">Date Added</a></th>
+          <th>
+            <a href="{{ url_for('users.index', sort='date', q=search_query) }}">
+              Date Added {% if sort_by == 'date' %}⬆️{% endif %}
+            </a>
+          </th>
           <th>Actions</th>
         </tr>
       </thead>
@@ -44,15 +56,22 @@
           <td>{{ user[2] }}</td>
           <td>{{ user[3] }}</td>
           <td>{{ user[4] }}</td>
-          <td>{{ user[0] }}</td> <!-- using ID as "date added" proxy -->
           <td>
-            <a href="/edit/{{ user[0] }}">Edit</a>
-            <a href="/delete/{{ user[0] }}" onclick="return confirm('Delete this user?')">Delete</a>
+            {% if user[5] %}
+              {{ user[5].strftime("%b %d, %Y %H:%M") }}
+            {% else %}
+              Unknown
+            {% endif %}
+          </td>
+          <td>
+            <a href="{{ url_for('users.edit_user', user_id=user[0]) }}">Edit</a>
+            <a href="{{ url_for('users.delete_user', user_id=user[0]) }}" onclick="return confirm('Delete this user?')">Delete</a>
           </td>
         </tr>
         {% endfor %}
       </tbody>
     </table>
+
   </div>
 </body>
 </html>
