@@ -1,23 +1,14 @@
-# Bytecode
+# Python
 __pycache__/
-*.pyc
+*.py[cod]
 
-# Env and secrets
+# Env Files
 .env
 
-# OS
-.DS_Store
-
 # Docker
-*.log
-*.pid
-*.db
-*.sqlite3
 postgres_data/
+*.log
 
-# Virtual environments
-venv/
-
-# VSCode or PyCharm settings (optional)
+# IDE
 .vscode/
 .idea/
