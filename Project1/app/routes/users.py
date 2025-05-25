@@ -2,6 +2,7 @@ from flask import Blueprint, render_template, request, redirect, url_for, flash
 from app.db import get_db
 import re
 
+
 users_bp = Blueprint("users", __name__)
 
 def is_valid_email(email):
